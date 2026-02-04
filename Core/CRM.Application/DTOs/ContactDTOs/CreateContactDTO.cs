@@ -1,8 +1,6 @@
-﻿using CRM.Domain.Commons;
-
-namespace CRM.Domain.Entities
+﻿namespace CRM.Application.DTOs.ContactDTOs
 {
-    public class Contact : BaseEntity
+    public class CreateContactDTO
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -19,7 +17,11 @@ namespace CRM.Domain.Entities
         public Guid OwnerId { get; set; }
         public Guid AccountId { get; set; }
 
-        public virtual User Owner { get; set; }
-        public virtual Account Account { get; set; }
     }
+
+    public class UpdateContactDTO : CreateContactDTO
+    {
+    }
+
+
 }

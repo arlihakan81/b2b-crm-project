@@ -1,43 +1,46 @@
-﻿using CRM.Application.DTOs.AccountDTOs;
+﻿using CRM.Application.DTOs.ContactDTOs;
 using CRM.Application.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CRM.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountsController(IAccountService service) : ControllerBase
+    public class ContactsController(IContactService service) : ControllerBase
     {
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AccountDTO>>> GetAll()
+        public async Task<ActionResult<IEnumerable<ContactDTO>>> GetAll()
         {
-            var accounts = await service.GetAllAsync();
-            if (accounts is null)
-                return new List<AccountDTO>();
-            return Ok(accounts);
+            var result = await service.GetAllAsync();
+            if (result is null)
+                return new List<ContactDTO>();
+
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<AccountDTO>> Get(Guid id)
+        public async Task<ActionResult<ContactDTO>> Get(Guid id)
         {
-            var account = await service.GetAsync(id);
-            if (account is null)
-                return NotFound();
-            return Ok(account);
+            var result = await service.GetAsync(id);
+            if (result is null)
+                return NotFound("Kişi bilgisi bulunamadı");
+
+            return Ok(result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateAccountDTO dto)
+        public async Task<IActionResult> Create([FromBody] CreateContactDTO dto)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            if(!await service.IsEmailUniqueAsync(dto.Email,null))
+            if (!await service.IsEmailUniqueAsync(dto.Email, null))
             {
                 return BadRequest("Bu e-posta adresi zaten kullanılıyor");
             }
-            if(dto.Phone is not null && !await service.IsPhoneUniqueAsync(dto.Phone, null))
+            if (dto.Mobile is not null && !await service.IsMobileUniqueAsync(dto.Mobile, null))
             {
                 return BadRequest("Bu telefon numarası zaten kullanılıyor");
             }
@@ -47,7 +50,7 @@ namespace CRM.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, [FromBody] UpdateAccountDTO dto)
+        public async Task<IActionResult> Update(Guid id, [FromBody] UpdateContactDTO dto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -56,7 +59,7 @@ namespace CRM.API.Controllers
             {
                 return BadRequest("Bu e-posta adresi zaten kullanılıyor");
             }
-            if (dto.Phone is not null && !await service.IsPhoneUniqueAsync(dto.Phone, id))
+            if (dto.Mobile is not null && !await service.IsMobileUniqueAsync(dto.Mobile, id))
             {
                 return BadRequest("Bu telefon numarası zaten kullanılıyor");
             }
@@ -68,14 +71,22 @@ namespace CRM.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var account = await service.GetAsync(id);
-            if (account is null)
+            var contact = await service.GetAsync(id);
+            if (contact is null)
             {
                 return NotFound("Öğe bulunamadı");
             }
-            await service.DeleteAsync(account.Id);
+            await service.DeleteAsync(id);
             return Ok("Silme işlemi başarılı");
+
         }
+
+
+
+
+
+
+
 
 
 

@@ -1,10 +1,7 @@
-﻿using CRM.Application.DTOs.ContactDTOs;
-
-namespace CRM.Application.DTOs.AccountDTOs
+﻿namespace CRM.Application.DTOs.AccountDTOs
 {
-    public class AccountDTO
+    public class CreateAccountDTO
     {
-        public Guid Id { get; set; }
         public string Name { get; set; }
         public Guid OwnerId { get; set; }
         public string Email { get; set; }
@@ -20,10 +17,12 @@ namespace CRM.Application.DTOs.AccountDTOs
         public string? State { get; set; }
         public string? Country { get; set; }
         public string? ZipCode { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
 
-        public virtual ICollection<ContactDTO>? Contacts { get; set; }
 
     }
+
+    public class UpdateAccountDTO : CreateAccountDTO
+    {
+    }
+
 }

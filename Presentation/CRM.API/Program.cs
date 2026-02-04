@@ -8,12 +8,14 @@ using CRM.Persistence.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(
+    options => options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(
@@ -68,14 +70,29 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         }
     );
 
+// DbContext registration
 builder.Services.AddDbContext<AppDbContext>();
+
+// Automapper registration code
 builder.Services.AddAutoMapper(typeof(MapProfile));
+
+// HttpContextAccessor for multi-tenancy
 builder.Services.AddHttpContextAccessor();
+
+// Multi-tenancy service
 builder.Services.AddScoped<IOrganizationService, OrganizationService>();
+
+// Services (token, auth)
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
+
+// Repositories
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<IContactRepository, ContactRepository>();
+
+// Services
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IContactService, ContactService>();
 
 
 var app = builder.Build();
