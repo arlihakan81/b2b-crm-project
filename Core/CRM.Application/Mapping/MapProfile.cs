@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using CRM.Application.DTOs.AccountDTOs;
+using CRM.Application.DTOs.CategoryDTOs;
 using CRM.Application.DTOs.ContactDTOs;
+using CRM.Application.DTOs.LeadDTOs;
 using CRM.Domain.Entities;
 
 namespace CRM.Application.Mapping
@@ -20,6 +22,14 @@ namespace CRM.Application.Mapping
                 .ReverseMap();
             CreateMap<CreateContactDTO, Contact>().ReverseMap();
             CreateMap<UpdateContactDTO, Contact>().ReverseMap();
+
+            CreateMap<Lead, LeadDTO>().ReverseMap();
+            CreateMap<CreateLeadDTO, Lead>().ReverseMap();
+            CreateMap<UpdateLeadDTO, Lead>().ReverseMap();
+
+            CreateMap<Category, CategoryDTO>().ReverseMap();
+            CreateMap<CreateCategoryDTO, Category>().ReverseMap();
+            CreateMap<UpdateCategoryDTO, Category>().ReverseMap();
 
         }
 

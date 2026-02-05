@@ -15,5 +15,7 @@ namespace CRM.Domain.Entities
 
         public virtual ICollection<Account>? Accounts { get; set; }
         public virtual ICollection<Contact>? Contacts { get; set; }
+        public virtual ICollection<Lead>? Leads { get; set; }
+        public virtual ICollection<Deal>? Deals { get; set; }
     }
 }
