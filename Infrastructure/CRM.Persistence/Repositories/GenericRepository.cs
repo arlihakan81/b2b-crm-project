@@ -10,7 +10,7 @@ namespace CRM.Persistence.Repositories
     {
         public DbSet<TEntity> Table => context.Set<TEntity>();
 
-        public async Task CreateAsync(TEntity entity)
+        public virtual async Task CreateAsync(TEntity entity)
         {
             Table.Add(entity);
             await context.SaveChangesAsync();
@@ -38,8 +38,9 @@ namespace CRM.Persistence.Repositories
             return await Table.FindAsync(id);
         }
 
-        public async Task UpdateAsync(TEntity entity)
+        public virtual async Task UpdateAsync(TEntity entity)
         {
+            entity.UpdatedAt = DateTime.Now;
             Table.Update(entity);
             await context.SaveChangesAsync();
         }

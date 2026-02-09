@@ -1,5 +1,6 @@
 ﻿using CRM.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace CRM.Persistence.Contexts
 {
@@ -15,6 +16,8 @@ namespace CRM.Persistence.Contexts
         public DbSet<Category> Categories { get; set; }
         public DbSet<DealType> DealTypes { get; set; }
         public DbSet<Stage> Stages { get; set; }
+        public DbSet<Attendee> Attendees { get; set; }
+        public DbSet<Activity> Activities { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

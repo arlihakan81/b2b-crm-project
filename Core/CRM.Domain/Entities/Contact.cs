@@ -22,5 +22,6 @@ namespace CRM.Domain.Entities
         public virtual User Owner { get; set; }
         public virtual Account Account { get; set; }
         public virtual ICollection<Deal>? Deals { get; set; }
+        public virtual ICollection<Activity>? Activities { get; set; }
     }
 }
