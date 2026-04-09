@@ -16,7 +16,7 @@ namespace CRM.Application.Requests.Accounts
         public string? Country { get; set; }
         public string? Website { get; set; }
         public string? ZipCode { get; set; }
-
+        public Guid OwnerId { get; set; }
 
     }
 

@@ -36,12 +36,9 @@ namespace CRM.Persistence.Services
 
         public async Task UpdateAsync(Guid id, UpdateDealRequest request)
         {
-            var deal = await repository.GetByIdAsync(id);
-            if(deal is null)
-            {
-                throw new Exception("Deal not found");
-            }
-            await repository.UpdateAsync(mapper.Map(request, deal)!);
+            var deal = await repository.GetByIdAsync(id) ?? throw new Exception("Deal not found");
+            mapper.Map(request, deal);
+            await repository.UpdateAsync(deal);
         }
     }
 }

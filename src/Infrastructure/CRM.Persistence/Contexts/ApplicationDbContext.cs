@@ -20,7 +20,7 @@ namespace CRM.Persistence.Contexts
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Deal> Deals { get; set; }
-        public DbSet<Category> Categories { get; set; }
+        public DbSet<DealCategory> DealCategories { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -35,9 +35,20 @@ namespace CRM.Persistence.Contexts
             modelBuilder.Entity<Order>().HasQueryFilter(_ => _.OrganizationId == organizationService.GetCurrentOrganizationId() && !_.IsDeleted);
             modelBuilder.Entity<OrderItem>().HasQueryFilter(_ => _.OrganizationId == organizationService.GetCurrentOrganizationId() && !_.IsDeleted);
             modelBuilder.Entity<Deal>().HasQueryFilter(_ => _.OrganizationId == organizationService.GetCurrentOrganizationId() && !_.IsDeleted);
-            modelBuilder.Entity<Category>().HasQueryFilter(_ => _.OrganizationId == organizationService.GetCurrentOrganizationId() && !_.IsDeleted);
+            modelBuilder.Entity<DealCategory>().HasQueryFilter(_ => _.OrganizationId == organizationService.GetCurrentOrganizationId() && !_.IsDeleted);
 
             modelBuilder.Entity<Deal>().HasOne(_ => _.Owner).WithMany(_ => _.Deals).HasForeignKey(_ => _.OwnerId).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Account>().HasOne(_ => _.Owner).WithMany(_ => _.Accounts).HasForeignKey(_ => _.OwnerId).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Contact>().HasOne(_ => _.Owner).WithMany(_ => _.Contacts).HasForeignKey(_ => _.OwnerId).OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Deal>().Property(_ => _.LeadSource).HasConversion<string>();
+            modelBuilder.Entity<Deal>().Property(_ => _.Type).HasConversion<string>();
+            modelBuilder.Entity<Deal>().Property(_ => _.Currency).HasConversion<string>();
+            modelBuilder.Entity<Deal>().Property(_ => _.Stage).HasConversion<string>();
+            modelBuilder.Entity<Deal>().Property(_ => _.Priority).HasConversion<string>();
+
+            modelBuilder.Entity<Account>().Property(_ => _.Type).HasConversion<string>();
+
 
             //modelBuilder.Entity<ApplicationRole>().HasData(
             //    [

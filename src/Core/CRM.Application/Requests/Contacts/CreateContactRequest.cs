@@ -12,6 +12,7 @@
         public string? Country { get; set; }
         public Guid AccountId { get; set; }
         public bool IsPrimary { get; set; }
+        public Guid OwnerId { get; set; }
     }
 
     public class UpdateContactRequest : CreateContactRequest { }

@@ -13,10 +13,9 @@ namespace CRM.Application.Responses.Deals
         public DealType Type { get; set; }
         public Guid CategoryId { get; set; }
         public decimal Amount { get; set; }
-        public Guid AccountId { get; set; }
-        public Guid? ContactId { get; set; }
         public DateTime? CloseDate { get; set; }
         public DealStage Stage { get; set; }
+        public LeadSource LeadSource { get; set; }
         public Guid OwnerId { get; set; }
         public decimal? Probability { get; set; }
         public decimal? ExpectedRevenue { get; set; }
@@ -25,7 +24,6 @@ namespace CRM.Application.Responses.Deals
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
 
-        public AccountResponse Account { get; set; }
         public ContactResponse? Contact { get; set; }
     }
 }

@@ -17,8 +17,10 @@ namespace CRM.Domain.Entities
         public string? Country { get; set; }
         public string? Website { get; set; }
         public string? ZipCode { get; set; }
+        public Guid OwnerId { get; set; }
 
         public ICollection<Contact>? Contacts { get; set; }
+        public ApplicationUser Owner { get; set; }
 
     }
 }

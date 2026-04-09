@@ -13,6 +13,8 @@ namespace CRM.Domain.Entities
         public ApplicationRole Role { get; set; }
 
         public ICollection<Deal>? Deals { get; set; }
+        public ICollection<Account>? Accounts { get; set; }
+        public ICollection<Contact>? Contacts { get; set; }
 
     }
 }

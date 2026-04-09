@@ -9,7 +9,6 @@ namespace CRM.Application.Responses.Contacts
         public string LastName { get; set; }
         public string? Email { get; set; }
         public string? Title { get; set; }
-        public Guid AccountId { get; set; }
 
         public AccountResponse Account { get; set; }
 

@@ -14,8 +14,10 @@ namespace CRM.Domain.Entities
         public string? Country { get; set; }
         public Guid AccountId { get; set; }
         public bool IsPrimary { get; set; } = false;
+        public Guid OwnerId { get; set; }
 
         public Account Account { get; set; }
+        public ApplicationUser Owner { get; set; }
 
 
 

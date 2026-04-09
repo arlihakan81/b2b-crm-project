@@ -59,14 +59,18 @@ namespace CRM.Persistence.Migrations
                     b.Property<Guid>("OrganizationId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("OwnerId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ShippingAddress")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -80,6 +84,8 @@ namespace CRM.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("OrganizationId");
+
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("Accounts");
                 });
@@ -106,6 +112,26 @@ namespace CRM.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ApplicationRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("851ff4c2-9497-4d84-9b84-e6ef40cf003f"),
+                            CreatedAt = new DateTime(2026, 4, 9, 22, 35, 45, 587, DateTimeKind.Local).AddTicks(7420),
+                            Name = "Super Admin"
+                        },
+                        new
+                        {
+                            Id = new Guid("6acf6e37-20a0-4c3b-8276-1f03e44b88af"),
+                            CreatedAt = new DateTime(2026, 4, 9, 22, 35, 45, 587, DateTimeKind.Local).AddTicks(7457),
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = new Guid("ac769c18-16d0-4ff2-87ff-13ef0399cdfe"),
+                            CreatedAt = new DateTime(2026, 4, 9, 22, 35, 45, 587, DateTimeKind.Local).AddTicks(7460),
+                            Name = "User"
+                        });
                 });
 
             modelBuilder.Entity("CRM.Domain.Entities.ApplicationUser", b =>
@@ -156,38 +182,6 @@ namespace CRM.Persistence.Migrations
                     b.ToTable("ApplicationUsers");
                 });
 
-            modelBuilder.Entity("CRM.Domain.Entities.Category", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("OrganizationId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrganizationId");
-
-                    b.ToTable("Categories");
-                });
-
             modelBuilder.Entity("CRM.Domain.Entities.Contact", b =>
                 {
                     b.Property<Guid>("Id")
@@ -232,6 +226,9 @@ namespace CRM.Persistence.Migrations
                     b.Property<Guid>("OrganizationId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("OwnerId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
@@ -243,6 +240,8 @@ namespace CRM.Persistence.Migrations
                     b.HasIndex("AccountId");
 
                     b.HasIndex("OrganizationId");
+
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("Contacts");
                 });
@@ -265,24 +264,25 @@ namespace CRM.Persistence.Migrations
                     b.Property<DateTime?>("CloseDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<Guid?>("ContactId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Currency")
-                        .HasColumnType("int");
+                    b.Property<string>("Currency")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("ExpectedRevenue")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<string>("LeadSource")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -294,17 +294,20 @@ namespace CRM.Persistence.Migrations
                     b.Property<Guid>("OwnerId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Priority")
-                        .HasColumnType("int");
+                    b.Property<string>("Priority")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("Probability")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("Stage")
-                        .HasColumnType("int");
+                    b.Property<string>("Stage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -322,6 +325,38 @@ namespace CRM.Persistence.Migrations
                     b.HasIndex("OwnerId");
 
                     b.ToTable("Deals");
+                });
+
+            modelBuilder.Entity("CRM.Domain.Entities.DealCategory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("OrganizationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrganizationId");
+
+                    b.ToTable("DealCategories");
                 });
 
             modelBuilder.Entity("CRM.Domain.Entities.Order", b =>
@@ -345,9 +380,6 @@ namespace CRM.Persistence.Migrations
                     b.Property<Guid>("OrganizationId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ProductId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
@@ -358,8 +390,6 @@ namespace CRM.Persistence.Migrations
                     b.HasIndex("ContactId");
 
                     b.HasIndex("OrganizationId");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("Orders");
                 });
@@ -476,7 +506,15 @@ namespace CRM.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("CRM.Domain.Entities.ApplicationUser", "Owner")
+                        .WithMany("Accounts")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("Organization");
+
+                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("CRM.Domain.Entities.ApplicationUser", b =>
@@ -498,17 +536,6 @@ namespace CRM.Persistence.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("CRM.Domain.Entities.Category", b =>
-                {
-                    b.HasOne("CRM.Domain.Entities.Organization", "Organization")
-                        .WithMany()
-                        .HasForeignKey("OrganizationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Organization");
-                });
-
             modelBuilder.Entity("CRM.Domain.Entities.Contact", b =>
                 {
                     b.HasOne("CRM.Domain.Entities.Account", "Account")
@@ -523,9 +550,17 @@ namespace CRM.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("CRM.Domain.Entities.ApplicationUser", "Owner")
+                        .WithMany("Contacts")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("Account");
 
                     b.Navigation("Organization");
+
+                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("CRM.Domain.Entities.Deal", b =>
@@ -536,7 +571,7 @@ namespace CRM.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CRM.Domain.Entities.Category", "Category")
+                    b.HasOne("CRM.Domain.Entities.DealCategory", "Category")
                         .WithMany("Deals")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -569,6 +604,17 @@ namespace CRM.Persistence.Migrations
                     b.Navigation("Owner");
                 });
 
+            modelBuilder.Entity("CRM.Domain.Entities.DealCategory", b =>
+                {
+                    b.HasOne("CRM.Domain.Entities.Organization", "Organization")
+                        .WithMany()
+                        .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Organization");
+                });
+
             modelBuilder.Entity("CRM.Domain.Entities.Order", b =>
                 {
                     b.HasOne("CRM.Domain.Entities.Account", "Account")
@@ -586,10 +632,6 @@ namespace CRM.Persistence.Migrations
                         .HasForeignKey("OrganizationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("CRM.Domain.Entities.Product", null)
-                        .WithMany("Orders")
-                        .HasForeignKey("ProductId");
 
                     b.Navigation("Account");
 
@@ -643,10 +685,14 @@ namespace CRM.Persistence.Migrations
 
             modelBuilder.Entity("CRM.Domain.Entities.ApplicationUser", b =>
                 {
+                    b.Navigation("Accounts");
+
+                    b.Navigation("Contacts");
+
                     b.Navigation("Deals");
                 });
 
-            modelBuilder.Entity("CRM.Domain.Entities.Category", b =>
+            modelBuilder.Entity("CRM.Domain.Entities.DealCategory", b =>
                 {
                     b.Navigation("Deals");
                 });
@@ -654,11 +700,6 @@ namespace CRM.Persistence.Migrations
             modelBuilder.Entity("CRM.Domain.Entities.Order", b =>
                 {
                     b.Navigation("Items");
-                });
-
-            modelBuilder.Entity("CRM.Domain.Entities.Product", b =>
-                {
-                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

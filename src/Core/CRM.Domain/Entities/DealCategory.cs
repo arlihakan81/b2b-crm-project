@@ -2,7 +2,7 @@
 
 namespace CRM.Domain.Entities
 {
-    public class Category : BaseEntity
+    public class DealCategory : BaseEntity
     {
         public string Name { get; set; }
         public string? Description { get; set; }

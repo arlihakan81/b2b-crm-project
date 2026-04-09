@@ -34,14 +34,14 @@ namespace CRM.Persistence.Repositories
         public async Task<bool> IsEmailUniqueAsync(string email, Guid? excludeId = null)
         {
             return !await context.Accounts
-                .Where(a => a.Email == email && (excludeId == null || a.Id != excludeId))
+                .Where(a => a.Email == email && (excludeId == null || a.Id != excludeId) && !a.IsDeleted)
                 .AnyAsync();
         }
 
         public async Task<bool> IsPhoneUniqueAsync(string phone, Guid? excludeId = null)
         {
             return !await context.Accounts
-                .Where(a => a.Phone == phone && (excludeId == null || a.Id != excludeId))
+                .Where(a => a.Phone == phone && (excludeId == null || a.Id != excludeId) && !a.IsDeleted)
                 .AnyAsync();
         }
     }

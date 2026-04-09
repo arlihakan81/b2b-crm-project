@@ -19,15 +19,15 @@ namespace CRM.Persistence.Repositories
         public async Task<bool> IsEmailUniqueAsync(string email, Guid? contactId = null)
         {
             return contactId == null
-                ? !await context.Contacts.AnyAsync(c => c.Email == email)
-                : !await context.Contacts.AnyAsync(c => c.Email == email && c.Id != contactId);
+                ? !await context.Contacts.AnyAsync(c => c.Email == email && !c.IsDeleted)
+                : !await context.Contacts.AnyAsync(c => c.Email == email && c.Id != contactId && !c.IsDeleted);
         }
 
         public async Task<bool> IsMobileUniqueAsync(string mobile, Guid? contactId = null)
         {
             return contactId == null
-                ? !await context.Contacts.AnyAsync(c => c.Mobile == mobile)
-                : !await context.Contacts.AnyAsync(c => c.Mobile == mobile && c.Id != contactId);
+                ? !await context.Contacts.AnyAsync(c => c.Mobile == mobile && !c.IsDeleted)
+                : !await context.Contacts.AnyAsync(c => c.Mobile == mobile && c.Id != contactId && !c.IsDeleted);
         }
     }
 }
