@@ -87,6 +87,13 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IDealRepository, DealRepository>();
 builder.Services.AddScoped<IDealService, DealService>();
 
+builder.Services.AddScoped<ILeadRepository, LeadRepository>();
+builder.Services.AddScoped<ILeadService, LeadService>();
+
+builder.Services.AddScoped<IQuoteRepository, QuoteRepository>();
+builder.Services.AddScoped<IQuoteItemRepository, QuoteItemRepository>();
+builder.Services.AddScoped<IQuoteService, QuoteService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -26,7 +26,7 @@ namespace CRM.Domain.Entities
         public Contact? Contact { get; set; }
         public ApplicationUser Owner { get; set; }
 
-
+        public ICollection<Quote>? Quotes { get; set; }
 
 
     }

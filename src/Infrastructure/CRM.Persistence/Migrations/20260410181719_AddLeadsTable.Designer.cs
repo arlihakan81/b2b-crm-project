@@ -4,6 +4,7 @@ using CRM.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CRM.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260410181719_AddLeadsTable")]
+    partial class AddLeadsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -548,83 +551,6 @@ namespace CRM.Persistence.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("CRM.Domain.Entities.Quote", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Currency")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("DealId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid>("OrganizationId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ValidUntil")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DealId");
-
-                    b.HasIndex("OrganizationId");
-
-                    b.ToTable("Quotes");
-                });
-
-            modelBuilder.Entity("CRM.Domain.Entities.QuoteItem", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid>("OrganizationId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("QuoteId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrganizationId");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("QuoteId");
-
-                    b.ToTable("QuoteItems");
-                });
-
             modelBuilder.Entity("CRM.Domain.Entities.Account", b =>
                 {
                     b.HasOne("CRM.Domain.Entities.Organization", "Organization")
@@ -836,52 +762,6 @@ namespace CRM.Persistence.Migrations
                     b.Navigation("Organization");
                 });
 
-            modelBuilder.Entity("CRM.Domain.Entities.Quote", b =>
-                {
-                    b.HasOne("CRM.Domain.Entities.Deal", "Deal")
-                        .WithMany()
-                        .HasForeignKey("DealId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CRM.Domain.Entities.Organization", "Organization")
-                        .WithMany()
-                        .HasForeignKey("OrganizationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Deal");
-
-                    b.Navigation("Organization");
-                });
-
-            modelBuilder.Entity("CRM.Domain.Entities.QuoteItem", b =>
-                {
-                    b.HasOne("CRM.Domain.Entities.Organization", "Organization")
-                        .WithMany()
-                        .HasForeignKey("OrganizationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CRM.Domain.Entities.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CRM.Domain.Entities.Quote", "Quote")
-                        .WithMany("Items")
-                        .HasForeignKey("QuoteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Organization");
-
-                    b.Navigation("Product");
-
-                    b.Navigation("Quote");
-                });
-
             modelBuilder.Entity("CRM.Domain.Entities.Account", b =>
                 {
                     b.Navigation("Contacts");
@@ -904,11 +784,6 @@ namespace CRM.Persistence.Migrations
                 });
 
             modelBuilder.Entity("CRM.Domain.Entities.Order", b =>
-                {
-                    b.Navigation("Items");
-                });
-
-            modelBuilder.Entity("CRM.Domain.Entities.Quote", b =>
                 {
                     b.Navigation("Items");
                 });

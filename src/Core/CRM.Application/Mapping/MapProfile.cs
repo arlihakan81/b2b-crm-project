@@ -2,11 +2,17 @@
 using CRM.Application.Requests.Accounts;
 using CRM.Application.Requests.Contacts;
 using CRM.Application.Requests.Deals;
+using CRM.Application.Requests.Leads;
 using CRM.Application.Requests.Products;
+using CRM.Application.Requests.QuoteItems;
+using CRM.Application.Requests.Quotes;
 using CRM.Application.Responses.Accounts;
 using CRM.Application.Responses.Contacts;
 using CRM.Application.Responses.Deals;
+using CRM.Application.Responses.Leads;
 using CRM.Application.Responses.Products;
+using CRM.Application.Responses.QuoteItems;
+using CRM.Application.Responses.Quotes;
 using CRM.Domain.Entities;
 using Microsoft.Extensions.Options;
 
@@ -32,7 +38,20 @@ namespace CRM.Application.Mapping
 
             CreateMap<Product, ProductResponse>();
             CreateMap<CreateProductRequest, Product>();
+            CreateMap<UpdateProductRequest, Product>();
 
+            CreateMap<Lead, LeadResponse>();
+            CreateMap<Lead, LeadDetailResponse>().ForMember(des => des.Contact, opt => opt.MapFrom(src => src.Contact));
+            CreateMap<CreateLeadRequest, Lead>();
+            CreateMap<UpdateLeadRequest, Lead>();
+
+            CreateMap<Quote, QuoteResponse>().ForMember(des => des.Items, opt => opt.MapFrom(src => src.Items)).ForMember(des => des.Deal, opt => opt.MapFrom(src => src.Deal));
+            CreateMap<CreateQuoteRequest, Quote>();
+            CreateMap<UpdateQuoteRequest, Quote>();
+
+            CreateMap<QuoteItem, QuoteItemResponse>().ForMember(des => des.Quote, opt => opt.MapFrom(src => src.Quote)).ForMember(des => des.Product, opt => opt.MapFrom(src => src.Product));
+            CreateMap<CreateQuoteItemRequest, QuoteItem>();
+            CreateMap<UpdateQuoteItemRequest, QuoteItem>();
 
         }
     }
