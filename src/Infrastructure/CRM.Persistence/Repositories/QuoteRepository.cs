@@ -14,6 +14,7 @@ namespace CRM.Persistence.Repositories
         {
             return await context.Quotes
                 .Include(q => q.Deal)
+                .ThenInclude(d => d.Contact).ThenInclude(c => c!.Account)
                 .Include(q => q.Items)!
                     .ThenInclude(i => i.Product).ToListAsync();
         }
@@ -22,6 +23,7 @@ namespace CRM.Persistence.Repositories
         {
             return await context.Quotes
                 .Include(q => q.Deal)
+                .ThenInclude(q => q.Contact).ThenInclude(c => c!.Account)
                 .Include(q => q.Items)!
                     .ThenInclude(i => i.Product)
                 .FirstOrDefaultAsync(expression);
@@ -31,6 +33,7 @@ namespace CRM.Persistence.Repositories
         {
             return await context.Quotes
                 .Include(q => q.Deal)
+                .ThenInclude(q => q.Contact).ThenInclude(c => c!.Account)
                 .Include(q => q.Items)!
                     .ThenInclude(i => i.Product)
                 .FirstOrDefaultAsync(q => q.Id == id);

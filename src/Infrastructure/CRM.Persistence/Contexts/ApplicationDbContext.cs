@@ -24,6 +24,8 @@ namespace CRM.Persistence.Contexts
         public DbSet<Lead> Leads { get; set; }
         public DbSet<Quote> Quotes { get; set; }
         public DbSet<QuoteItem> QuoteItems { get; set; }
+        public DbSet<Permission> Permissions { get; set; }
+        public DbSet<RolePermission> RolePermissions { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -43,6 +45,7 @@ namespace CRM.Persistence.Contexts
             modelBuilder.Entity<Quote>().HasQueryFilter(_ => _.OrganizationId == organizationService.GetCurrentOrganizationId() && !_.IsDeleted);
             modelBuilder.Entity<QuoteItem>().HasQueryFilter(_ => _.OrganizationId == organizationService.GetCurrentOrganizationId() && !_.IsDeleted);
 
+
             modelBuilder.Entity<Deal>().HasOne(_ => _.Owner).WithMany(_ => _.Deals).HasForeignKey(_ => _.OwnerId).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Account>().HasOne(_ => _.Owner).WithMany(_ => _.Accounts).HasForeignKey(_ => _.OwnerId).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Contact>().HasOne(_ => _.Owner).WithMany(_ => _.Contacts).HasForeignKey(_ => _.OwnerId).OnDelete(DeleteBehavior.Restrict);
@@ -58,29 +61,179 @@ namespace CRM.Persistence.Contexts
             modelBuilder.Entity<Account>().Property(_ => _.Type).HasConversion<string>();
 
 
-            //modelBuilder.Entity<ApplicationRole>().HasData(
-            //    [
-            //        new ApplicationRole
-            //        {
-            //            Id = Guid.NewGuid(),
-            //            Name = "Super Admin",
-            //            Description = null
-            //        },
-            //        new ApplicationRole
-            //        {
-            //            Id = Guid.NewGuid(),
-            //            Name = "Admin",
-            //            Description = null
-            //        },
-            //        new ApplicationRole
-            //        {
-            //            Id = Guid.NewGuid(),
-            //            Name = "User",
-            //            Description = null
-            //        }
-            //    ]
+            modelBuilder.Entity<ApplicationRole>().HasData(
+                [
+                    new ApplicationRole
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Super Admin",
+                        Description = null
+                    },
+                    new ApplicationRole
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Admin",
+                        Description = null
+                    },
+                    new ApplicationRole
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "User",
+                        Description = null
+                    }
+                ]
 
-            //    );
+                );
+
+            modelBuilder.Entity<Permission>().HasData(
+                [
+                    new Permission {
+                        Id = Guid.NewGuid(),
+                        Module = "Account",
+                        Action = "Create",
+                        CreatedAt = DateTime.Now
+                    },
+                    new Permission {
+                        Id = Guid.NewGuid(),
+                        Module = "Account",
+                        Action = "Read",
+                        CreatedAt = DateTime.Now
+                    },
+                    new Permission {
+                        Id = Guid.NewGuid(),
+                        Module = "Account",
+                        Action = "Update",
+                        CreatedAt = DateTime.Now
+                    },
+                    new Permission {
+                        Id = Guid.NewGuid(),
+                        Module = "Account",
+                        Action = "Delete",
+                        CreatedAt = DateTime.Now                                
+                    },
+                    new Permission {
+                        Id = Guid.NewGuid(),
+                        Module = "Contact",
+                        Action = "Create",
+                        CreatedAt = DateTime.Now
+                    },
+                    new Permission {
+                        Id = Guid.NewGuid(),
+                        Module = "Contact",
+                        Action = "Read",
+                        CreatedAt = DateTime.Now
+                    },
+                    new Permission {
+                        Id = Guid.NewGuid(),
+                        Module = "Contact",
+                        Action = "Update",
+                        CreatedAt = DateTime.Now
+                    },
+                    new Permission {
+                        Id = Guid.NewGuid(),
+                        Module = "Contact",
+                        Action = "Delete",
+                        CreatedAt = DateTime.Now
+                    },
+                    new Permission {
+                        Id = Guid.NewGuid(),
+                        Module = "Deal",
+                        Action = "Create",
+                        CreatedAt = DateTime.Now
+                    },
+                    new Permission {
+                        Id = Guid.NewGuid(),
+                        Module = "Deal",
+                        Action = "Read",
+                        CreatedAt = DateTime.Now
+                    },
+                    new Permission {
+                        Id = Guid.NewGuid(),
+                        Module = "Deal",
+                        Action = "Update",
+                        CreatedAt = DateTime.Now
+                    },
+                    new Permission {
+                        Id = Guid.NewGuid(),
+                        Module = "Deal",
+                        Action = "Delete",
+                        CreatedAt = DateTime.Now
+                    },
+                    new Permission {
+                        Id = Guid.NewGuid(),
+                        Module = "Lead",
+                        Action = "Create",
+                        CreatedAt = DateTime.Now
+                    },
+                    new Permission {
+                        Id = Guid.NewGuid(),
+                        Module = "Lead",
+                        Action = "Read",
+                        CreatedAt = DateTime.Now
+                    },
+                    new Permission {
+                        Id = Guid.NewGuid(),
+                        Module = "Lead",
+                        Action = "Update",
+                        CreatedAt = DateTime.Now
+                    },
+                    new Permission {
+                        Id = Guid.NewGuid(),
+                        Module = "Lead",
+                        Action = "Delete",
+                        CreatedAt = DateTime.Now
+                    },
+                    new Permission {
+                        Id = Guid.NewGuid(),
+                        Module = "Quote",
+                        Action = "Create",
+                        CreatedAt = DateTime.Now
+                    },
+                    new Permission {
+                        Id = Guid.NewGuid(),
+                        Module = "Quote",
+                        Action = "Read",
+                        CreatedAt = DateTime.Now
+                    },
+                    new Permission {
+                        Id = Guid.NewGuid(),
+                        Module = "Quote",
+                        Action = "Update",
+                        CreatedAt = DateTime.Now
+                    },
+                    new Permission {
+                        Id = Guid.NewGuid(),
+                        Module = "Quote",
+                        Action = "Delete",
+                        CreatedAt = DateTime.Now
+                    },
+                    new Permission {
+                        Id = Guid.NewGuid(),
+                        Module = "Product",
+                        Action = "Create",
+                        CreatedAt = DateTime.Now
+                    },
+                    new Permission {
+                        Id = Guid.NewGuid(),
+                        Module = "Product",
+                        Action = "Read",
+                        CreatedAt = DateTime.Now
+                    },
+                    new Permission {
+                        Id = Guid.NewGuid(),
+                        Module = "Product",
+                        Action = "Update",
+                        CreatedAt = DateTime.Now
+                    },
+                    new Permission {
+                        Id = Guid.NewGuid(),
+                        Module = "Product",
+                        Action = "Delete",
+                        CreatedAt = DateTime.Now
+                    }
+                ]
+                );
+
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

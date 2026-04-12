@@ -10,15 +10,13 @@ namespace CRM.Persistence.Repositories
     {
         readonly ApplicationDbContext context = context;
 
-        public async Task AddRangeAsync(List<QuoteItem> items)
-        {
-            context.QuoteItems.AddRange(items);
-            await context.SaveChangesAsync();
-        }
-
         public async Task DeleteRangeAsync(List<QuoteItem> items)
         {
-            context.QuoteItems.RemoveRange(items);
+            foreach(var item in items)
+            {
+                item.IsDeleted = true;
+                context.QuoteItems.Update(item);
+            }
             await context.SaveChangesAsync();
         }
 
@@ -42,10 +40,5 @@ namespace CRM.Persistence.Repositories
             return await context.QuoteItems.Where(q => q.QuoteId == quoteId).Include(_ => _.Quote).ThenInclude(_ => _.Deal).Include(_ => _.Product).ToListAsync();
         }
 
-        public async Task UpdateRangeAsync(List<QuoteItem> items)
-        {
-            context.QuoteItems.UpdateRange(items);
-            await context.SaveChangesAsync();
-        }
     }
 }

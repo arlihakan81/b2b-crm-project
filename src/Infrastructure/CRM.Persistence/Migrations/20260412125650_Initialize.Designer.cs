@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CRM.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260410181719_AddLeadsTable")]
-    partial class AddLeadsTable
+    [Migration("20260412125650_Initialize")]
+    partial class Initialize
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -115,6 +115,26 @@ namespace CRM.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ApplicationRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("1fb9ddea-7c22-4599-91ef-2ad65f5e7d16"),
+                            CreatedAt = new DateTime(2026, 4, 12, 15, 56, 49, 225, DateTimeKind.Local).AddTicks(1916),
+                            Name = "Super Admin"
+                        },
+                        new
+                        {
+                            Id = new Guid("e8cf678b-8892-4195-9b02-37a536e76e30"),
+                            CreatedAt = new DateTime(2026, 4, 12, 15, 56, 49, 225, DateTimeKind.Local).AddTicks(1977),
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = new Guid("88f9bb0b-339f-4707-a4b3-5a69dd4e070a"),
+                            CreatedAt = new DateTime(2026, 4, 12, 15, 56, 49, 225, DateTimeKind.Local).AddTicks(1980),
+                            Name = "User"
+                        });
                 });
 
             modelBuilder.Entity("CRM.Domain.Entities.ApplicationUser", b =>
@@ -257,9 +277,6 @@ namespace CRM.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("ExpectedRevenue")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -281,7 +298,7 @@ namespace CRM.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("Probability")
+                    b.Property<decimal>("Probability")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Stage")
@@ -513,6 +530,201 @@ namespace CRM.Persistence.Migrations
                     b.ToTable("Organizations");
                 });
 
+            modelBuilder.Entity("CRM.Domain.Entities.Permission", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Action")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Module")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Permissions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("895df540-616b-4e13-9b25-447053deecfd"),
+                            Action = "Create",
+                            CreatedAt = new DateTime(2026, 4, 12, 15, 56, 49, 225, DateTimeKind.Local).AddTicks(2364),
+                            Module = "Account"
+                        },
+                        new
+                        {
+                            Id = new Guid("463f402b-9586-4b8d-af28-4ec4c51eb16e"),
+                            Action = "Read",
+                            CreatedAt = new DateTime(2026, 4, 12, 15, 56, 49, 225, DateTimeKind.Local).AddTicks(2367),
+                            Module = "Account"
+                        },
+                        new
+                        {
+                            Id = new Guid("3527a8e3-9815-4b99-b6a7-c50e43ab813a"),
+                            Action = "Update",
+                            CreatedAt = new DateTime(2026, 4, 12, 15, 56, 49, 225, DateTimeKind.Local).AddTicks(2371),
+                            Module = "Account"
+                        },
+                        new
+                        {
+                            Id = new Guid("520790e6-adbf-4cd0-aa01-7317ede9343e"),
+                            Action = "Delete",
+                            CreatedAt = new DateTime(2026, 4, 12, 15, 56, 49, 225, DateTimeKind.Local).AddTicks(2374),
+                            Module = "Account"
+                        },
+                        new
+                        {
+                            Id = new Guid("0277d7f5-ce64-4726-8b4d-1fd0d0e471f7"),
+                            Action = "Create",
+                            CreatedAt = new DateTime(2026, 4, 12, 15, 56, 49, 225, DateTimeKind.Local).AddTicks(2377),
+                            Module = "Contact"
+                        },
+                        new
+                        {
+                            Id = new Guid("4cb03782-4e07-48f0-b203-524ec54f4bb7"),
+                            Action = "Read",
+                            CreatedAt = new DateTime(2026, 4, 12, 15, 56, 49, 225, DateTimeKind.Local).AddTicks(2384),
+                            Module = "Contact"
+                        },
+                        new
+                        {
+                            Id = new Guid("dc59a093-5a77-4c2b-b4d0-57ca440e3b8f"),
+                            Action = "Update",
+                            CreatedAt = new DateTime(2026, 4, 12, 15, 56, 49, 225, DateTimeKind.Local).AddTicks(2387),
+                            Module = "Contact"
+                        },
+                        new
+                        {
+                            Id = new Guid("d98807a5-78e5-474d-9c44-ce8be16317e5"),
+                            Action = "Delete",
+                            CreatedAt = new DateTime(2026, 4, 12, 15, 56, 49, 225, DateTimeKind.Local).AddTicks(2390),
+                            Module = "Contact"
+                        },
+                        new
+                        {
+                            Id = new Guid("a1de87ed-b390-4bdd-82ae-42f3e94e08cc"),
+                            Action = "Create",
+                            CreatedAt = new DateTime(2026, 4, 12, 15, 56, 49, 225, DateTimeKind.Local).AddTicks(2393),
+                            Module = "Deal"
+                        },
+                        new
+                        {
+                            Id = new Guid("6974ca82-078f-4666-bc6d-301e65c32100"),
+                            Action = "Read",
+                            CreatedAt = new DateTime(2026, 4, 12, 15, 56, 49, 225, DateTimeKind.Local).AddTicks(2396),
+                            Module = "Deal"
+                        },
+                        new
+                        {
+                            Id = new Guid("1440fbc3-53d5-4fb9-a424-d2c068776409"),
+                            Action = "Update",
+                            CreatedAt = new DateTime(2026, 4, 12, 15, 56, 49, 225, DateTimeKind.Local).AddTicks(2400),
+                            Module = "Deal"
+                        },
+                        new
+                        {
+                            Id = new Guid("ec34219a-262a-441f-874f-9b40954cdb20"),
+                            Action = "Delete",
+                            CreatedAt = new DateTime(2026, 4, 12, 15, 56, 49, 225, DateTimeKind.Local).AddTicks(2404),
+                            Module = "Deal"
+                        },
+                        new
+                        {
+                            Id = new Guid("11e23f1e-5bae-4d04-90e3-f4d0d546e937"),
+                            Action = "Create",
+                            CreatedAt = new DateTime(2026, 4, 12, 15, 56, 49, 225, DateTimeKind.Local).AddTicks(2406),
+                            Module = "Lead"
+                        },
+                        new
+                        {
+                            Id = new Guid("decf92f3-e782-4917-a960-a51de29d763c"),
+                            Action = "Read",
+                            CreatedAt = new DateTime(2026, 4, 12, 15, 56, 49, 225, DateTimeKind.Local).AddTicks(2434),
+                            Module = "Lead"
+                        },
+                        new
+                        {
+                            Id = new Guid("bc1b6dd6-429c-4785-a0a4-ead046dad378"),
+                            Action = "Update",
+                            CreatedAt = new DateTime(2026, 4, 12, 15, 56, 49, 225, DateTimeKind.Local).AddTicks(2437),
+                            Module = "Lead"
+                        },
+                        new
+                        {
+                            Id = new Guid("9eb176bd-ca0b-4b7c-8af1-632bf4bd5424"),
+                            Action = "Delete",
+                            CreatedAt = new DateTime(2026, 4, 12, 15, 56, 49, 225, DateTimeKind.Local).AddTicks(2440),
+                            Module = "Lead"
+                        },
+                        new
+                        {
+                            Id = new Guid("1858b639-a5c6-41ba-b932-bc5557ba39f7"),
+                            Action = "Create",
+                            CreatedAt = new DateTime(2026, 4, 12, 15, 56, 49, 225, DateTimeKind.Local).AddTicks(2444),
+                            Module = "Quote"
+                        },
+                        new
+                        {
+                            Id = new Guid("3e8aa638-4a06-4dca-b275-1f9223e57bfc"),
+                            Action = "Read",
+                            CreatedAt = new DateTime(2026, 4, 12, 15, 56, 49, 225, DateTimeKind.Local).AddTicks(2446),
+                            Module = "Quote"
+                        },
+                        new
+                        {
+                            Id = new Guid("00ce4bda-f4df-40f9-a4c3-bc01ca770c4d"),
+                            Action = "Update",
+                            CreatedAt = new DateTime(2026, 4, 12, 15, 56, 49, 225, DateTimeKind.Local).AddTicks(2449),
+                            Module = "Quote"
+                        },
+                        new
+                        {
+                            Id = new Guid("291897da-00b2-42d5-900c-f2a1b0a6351f"),
+                            Action = "Delete",
+                            CreatedAt = new DateTime(2026, 4, 12, 15, 56, 49, 225, DateTimeKind.Local).AddTicks(2452),
+                            Module = "Quote"
+                        },
+                        new
+                        {
+                            Id = new Guid("06409a39-7be8-466b-99dd-7d319b93b2e1"),
+                            Action = "Create",
+                            CreatedAt = new DateTime(2026, 4, 12, 15, 56, 49, 225, DateTimeKind.Local).AddTicks(2455),
+                            Module = "Product"
+                        },
+                        new
+                        {
+                            Id = new Guid("83f5a922-4771-4373-bee0-1307cbd1af5f"),
+                            Action = "Read",
+                            CreatedAt = new DateTime(2026, 4, 12, 15, 56, 49, 225, DateTimeKind.Local).AddTicks(2461),
+                            Module = "Product"
+                        },
+                        new
+                        {
+                            Id = new Guid("ac5c25d7-3c5e-469a-8010-b48629c40c2a"),
+                            Action = "Update",
+                            CreatedAt = new DateTime(2026, 4, 12, 15, 56, 49, 225, DateTimeKind.Local).AddTicks(2464),
+                            Module = "Product"
+                        },
+                        new
+                        {
+                            Id = new Guid("583614fe-0b43-42d9-8f94-2bc8755d9daf"),
+                            Action = "Delete",
+                            CreatedAt = new DateTime(2026, 4, 12, 15, 56, 49, 225, DateTimeKind.Local).AddTicks(2466),
+                            Module = "Product"
+                        });
+                });
+
             modelBuilder.Entity("CRM.Domain.Entities.Product", b =>
                 {
                     b.Property<Guid>("Id")
@@ -549,6 +761,113 @@ namespace CRM.Persistence.Migrations
                     b.HasIndex("OrganizationId");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("CRM.Domain.Entities.Quote", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Currency")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("DealId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("OrganizationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ValidUntil")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DealId");
+
+                    b.HasIndex("OrganizationId");
+
+                    b.ToTable("Quotes");
+                });
+
+            modelBuilder.Entity("CRM.Domain.Entities.QuoteItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("OrganizationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("QuoteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrganizationId");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("QuoteId");
+
+                    b.ToTable("QuoteItems");
+                });
+
+            modelBuilder.Entity("CRM.Domain.Entities.RolePermission", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("PermissionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PermissionId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("RolePermissions");
                 });
 
             modelBuilder.Entity("CRM.Domain.Entities.Account", b =>
@@ -762,6 +1081,71 @@ namespace CRM.Persistence.Migrations
                     b.Navigation("Organization");
                 });
 
+            modelBuilder.Entity("CRM.Domain.Entities.Quote", b =>
+                {
+                    b.HasOne("CRM.Domain.Entities.Deal", "Deal")
+                        .WithMany("Quotes")
+                        .HasForeignKey("DealId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CRM.Domain.Entities.Organization", "Organization")
+                        .WithMany()
+                        .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Deal");
+
+                    b.Navigation("Organization");
+                });
+
+            modelBuilder.Entity("CRM.Domain.Entities.QuoteItem", b =>
+                {
+                    b.HasOne("CRM.Domain.Entities.Organization", "Organization")
+                        .WithMany()
+                        .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CRM.Domain.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CRM.Domain.Entities.Quote", "Quote")
+                        .WithMany("Items")
+                        .HasForeignKey("QuoteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Organization");
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Quote");
+                });
+
+            modelBuilder.Entity("CRM.Domain.Entities.RolePermission", b =>
+                {
+                    b.HasOne("CRM.Domain.Entities.Permission", "Permission")
+                        .WithMany()
+                        .HasForeignKey("PermissionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CRM.Domain.Entities.ApplicationRole", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Permission");
+
+                    b.Navigation("Role");
+                });
+
             modelBuilder.Entity("CRM.Domain.Entities.Account", b =>
                 {
                     b.Navigation("Contacts");
@@ -778,12 +1162,22 @@ namespace CRM.Persistence.Migrations
                     b.Navigation("Leads");
                 });
 
+            modelBuilder.Entity("CRM.Domain.Entities.Deal", b =>
+                {
+                    b.Navigation("Quotes");
+                });
+
             modelBuilder.Entity("CRM.Domain.Entities.DealCategory", b =>
                 {
                     b.Navigation("Deals");
                 });
 
             modelBuilder.Entity("CRM.Domain.Entities.Order", b =>
+                {
+                    b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("CRM.Domain.Entities.Quote", b =>
                 {
                     b.Navigation("Items");
                 });

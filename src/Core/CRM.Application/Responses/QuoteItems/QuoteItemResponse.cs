@@ -10,7 +10,6 @@ namespace CRM.Application.Responses.QuoteItems
         public decimal TotalPrice => Quantity * UnitPrice;
 
         public ProductResponse Product { get; set; }
-        public QuoteResponse Quote { get; set; }
 
     }
 }

@@ -49,7 +49,7 @@ namespace CRM.Application.Mapping
             CreateMap<CreateQuoteRequest, Quote>();
             CreateMap<UpdateQuoteRequest, Quote>();
 
-            CreateMap<QuoteItem, QuoteItemResponse>().ForMember(des => des.Quote, opt => opt.MapFrom(src => src.Quote)).ForMember(des => des.Product, opt => opt.MapFrom(src => src.Product));
+            CreateMap<QuoteItem, QuoteItemResponse>().ForMember(des => des.Product, opt => opt.MapFrom(src => src.Product));
             CreateMap<CreateQuoteItemRequest, QuoteItem>();
             CreateMap<UpdateQuoteItemRequest, QuoteItem>();
 

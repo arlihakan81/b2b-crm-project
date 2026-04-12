@@ -21,8 +21,6 @@ namespace CRM.Persistence.Services
 
             var quoteItems = mapper.Map<List<Domain.Entities.QuoteItem>>(request.Items);
             quoteItems.ForEach(i => i.QuoteId = quote.Id);
-
-            //await itemRepository.AddRangeAsync(quoteItems);
         }
 
         public async Task DeleteAsync(Guid id)
@@ -51,7 +49,6 @@ namespace CRM.Persistence.Services
             var quote = await repository.GetAsync(q => q.Id == id) ?? throw new KeyNotFoundException("Öğe bulunamadı");
             quote = mapper.Map(request, quote);
             await repository.UpdateAsync(quote);
-            //await itemRepository.UpdateRangeAsync((await itemRepository.GetAllAsync())!.Where(i => i.QuoteId == id).ToList());
         }
     }
 }
