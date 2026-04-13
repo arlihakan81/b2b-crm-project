@@ -45,7 +45,7 @@ namespace CRM.Persistence.Repositories
 
         public async Task UpdateAsync(T entity)
         {
-            entity.UpdatedAt = DateTime.Now;
+            entity.ModifiedAt = DateTime.Now;
             context.Set<T>().Update(entity);
             await context.SaveChangesAsync();
         }

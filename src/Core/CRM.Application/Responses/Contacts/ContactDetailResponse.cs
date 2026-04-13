@@ -2,13 +2,8 @@
 
 namespace CRM.Application.Responses.Contacts
 {
-    public class ContactDetailResponse
+    public class ContactDetailResponse : ContactResponse
     {
-        public Guid Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string? Email { get; set; }
-        public string? Title { get; set; }
         public string? Mobile { get; set; }
         public string? Address { get; set; }
         public string? City { get; set; }
@@ -16,7 +11,7 @@ namespace CRM.Application.Responses.Contacts
         public bool IsPrimary { get; set; } = false;
         public Guid OwnerId { get; set; }
         public DateTime CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
+        public DateTime? ModifiedAt { get; set; }
 
         public AccountResponse Account { get; set; }
     }

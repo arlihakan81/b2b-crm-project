@@ -15,6 +15,6 @@ namespace CRM.Application.Responses.Quotes
         public DealResponse Deal { get; set; }
         public ICollection<QuoteItemResponse>? Items { get; set; }
         public DateTime CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
+        public DateTime? ModifiedAt { get; set; }
     }
 }

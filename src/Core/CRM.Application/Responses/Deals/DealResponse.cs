@@ -22,7 +22,7 @@ namespace CRM.Application.Responses.Deals
         public Priority Priority { get; set; }
 
         public DateTime CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
+        public DateTime? ModifiedAt { get; set; }
 
         public ContactResponse? Contact { get; set; }
     }

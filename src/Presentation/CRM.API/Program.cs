@@ -94,6 +94,9 @@ builder.Services.AddScoped<IQuoteRepository, QuoteRepository>();
 builder.Services.AddScoped<IQuoteItemRepository, QuoteItemRepository>();
 builder.Services.AddScoped<IQuoteService, QuoteService>();
 
+builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
+builder.Services.AddScoped<IActivityService, ActivityService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
