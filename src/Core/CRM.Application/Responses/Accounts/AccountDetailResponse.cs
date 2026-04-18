@@ -5,6 +5,8 @@ namespace CRM.Application.Responses.Accounts
 {
     public class AccountDetailResponse : AccountResponse
     {
+        public string? TaxNumber { get; set; }
+        public string? TaxOffice { get; set; }
         public string? BillingAddress { get; set; }
         public string? ShippingAddress { get; set; }
         public string? City { get; set; }

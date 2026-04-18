@@ -7,9 +7,10 @@ using System.Net.Http;
 
 namespace CRM.Persistence.Contexts
 {
-    public class ApplicationDbContext(IOrganizationService organizationService = null!) : DbContext
+    public class ApplicationDbContext(IOrganizationService organizationService = null!, IApplicationUserService userService = null!) : DbContext
     {
         readonly IOrganizationService organizationService = organizationService;
+        readonly IApplicationUserService userService = userService;
 
         public DbSet<Organization> Organizations { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
@@ -51,6 +52,40 @@ namespace CRM.Persistence.Contexts
             modelBuilder.Entity<Account>().HasOne(_ => _.Owner).WithMany(_ => _.Accounts).HasForeignKey(_ => _.OwnerId).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Contact>().HasOne(_ => _.Owner).WithMany(_ => _.Contacts).HasForeignKey(_ => _.OwnerId).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Lead>().HasOne(_ => _.Owner).WithMany(_ => _.Leads).HasForeignKey(_ => _.OwnerId).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Activity>().HasOne(_ => _.Owner).WithMany(_ => _.Activities).HasForeignKey(_ => _.OwnerId).OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Account>().HasOne(_ => _.CreatedBy).WithMany().HasForeignKey(_ => _.CreatedById).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Account>().HasOne(_ => _.UpdatedBy).WithMany().HasForeignKey(_ => _.UpdatedById).OnDelete(DeleteBehavior.Restrict);
+            
+            modelBuilder.Entity<Contact>().HasOne(_ => _.CreatedBy).WithMany().HasForeignKey(_ => _.CreatedById).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Contact>().HasOne(_ => _.UpdatedBy).WithMany().HasForeignKey(_ => _.UpdatedById).OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Product>().HasOne(_ => _.CreatedBy).WithMany().HasForeignKey(_ => _.CreatedById).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Product>().HasOne(_ => _.UpdatedBy).WithMany().HasForeignKey(_ => _.UpdatedById).OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Order>().HasOne(_ => _.CreatedBy).WithMany().HasForeignKey(_ => _.CreatedById).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Order>().HasOne(_ => _.UpdatedBy).WithMany().HasForeignKey(_ => _.UpdatedById).OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<OrderItem>().HasOne(_ => _.CreatedBy).WithMany().HasForeignKey(_ => _.CreatedById).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<OrderItem>().HasOne(_ => _.UpdatedBy).WithMany().HasForeignKey(_ => _.UpdatedById).OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Deal>().HasOne(_ => _.CreatedBy).WithMany().HasForeignKey(_ => _.CreatedById).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Deal>().HasOne(_ => _.UpdatedBy).WithMany().HasForeignKey(_ => _.UpdatedById).OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<DealCategory>().HasOne(_ => _.CreatedBy).WithMany().HasForeignKey(_ => _.CreatedById).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<DealCategory>().HasOne(_ => _.UpdatedBy).WithMany().HasForeignKey(_ => _.UpdatedById).OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Lead>().HasOne(_ => _.CreatedBy).WithMany().HasForeignKey(_ => _.CreatedById).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Lead>().HasOne(_ => _.UpdatedBy).WithMany().HasForeignKey(_ => _.UpdatedById).OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Quote>().HasOne(_ => _.CreatedBy).WithMany().HasForeignKey(_ => _.CreatedById).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Quote>().HasOne(_ => _.UpdatedBy).WithMany().HasForeignKey(_ => _.UpdatedById).OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<QuoteItem>().HasOne(_ => _.CreatedBy).WithMany().HasForeignKey(_ => _.CreatedById).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<QuoteItem>().HasOne(_ => _.UpdatedBy).WithMany().HasForeignKey(_ => _.UpdatedById).OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Activity>().HasOne(_ => _.CreatedBy).WithMany().HasForeignKey(_ => _.CreatedById).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Activity>().HasOne(_ => _.UpdatedBy).WithMany().HasForeignKey(_ => _.UpdatedById).OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Deal>().Property(_ => _.LeadSource).HasConversion<string>();
             modelBuilder.Entity<Deal>().Property(_ => _.Type).HasConversion<string>();
@@ -59,7 +94,6 @@ namespace CRM.Persistence.Contexts
             modelBuilder.Entity<Deal>().Property(_ => _.Priority).HasConversion<string>();
             modelBuilder.Entity<Lead>().Property(_ => _.Source).HasConversion<string>();
             modelBuilder.Entity<Activity>().Property(_ => _.Type).HasConversion<string>();
-            modelBuilder.Entity<Activity>().Property(_ => _.RelatedEntityType).HasConversion<string>();
 
             modelBuilder.Entity<Account>().Property(_ => _.Type).HasConversion<string>();
 
@@ -86,180 +120,6 @@ namespace CRM.Persistence.Contexts
                 ]
 
                 );
-
-            //modelBuilder.Entity<Permission>().HasData(
-            //    [
-            //        new Permission {
-            //            Id = Guid.NewGuid(),
-            //            Module = "Account",
-            //            Action = "Create",
-            //            CreatedAt = DateTime.Now
-            //        },
-            //        new Permission {
-            //            Id = Guid.NewGuid(),
-            //            Module = "Account",
-            //            Action = "Read",
-            //            CreatedAt = DateTime.Now
-            //        },
-            //        new Permission {
-            //            Id = Guid.NewGuid(),
-            //            Module = "Account",
-            //            Action = "Update",
-            //            CreatedAt = DateTime.Now
-            //        },
-            //        new Permission {
-            //            Id = Guid.NewGuid(),
-            //            Module = "Account",
-            //            Action = "Delete",
-            //            CreatedAt = DateTime.Now
-            //        },
-            //        new Permission {
-            //            Id = Guid.NewGuid(),
-            //            Module = "Contact",
-            //            Action = "Create",
-            //            CreatedAt = DateTime.Now
-            //        },
-            //        new Permission {
-            //            Id = Guid.NewGuid(),
-            //            Module = "Contact",
-            //            Action = "Read",
-            //            CreatedAt = DateTime.Now
-            //        },
-            //        new Permission {
-            //            Id = Guid.NewGuid(),
-            //            Module = "Contact",
-            //            Action = "Update",
-            //            CreatedAt = DateTime.Now
-            //        },
-            //        new Permission {
-            //            Id = Guid.NewGuid(),
-            //            Module = "Contact",
-            //            Action = "Delete",
-            //            CreatedAt = DateTime.Now
-            //        },
-            //        new Permission {
-            //            Id = Guid.NewGuid(),
-            //            Module = "Deal",
-            //            Action = "Create",
-            //            CreatedAt = DateTime.Now
-            //        },
-            //        new Permission {
-            //            Id = Guid.NewGuid(),
-            //            Module = "Deal",
-            //            Action = "Read",
-            //            CreatedAt = DateTime.Now
-            //        },
-            //        new Permission {
-            //            Id = Guid.NewGuid(),
-            //            Module = "Deal",
-            //            Action = "Update",
-            //            CreatedAt = DateTime.Now
-            //        },
-            //        new Permission {
-            //            Id = Guid.NewGuid(),
-            //            Module = "Deal",
-            //            Action = "Delete",
-            //            CreatedAt = DateTime.Now
-            //        },
-            //        new Permission {
-            //            Id = Guid.NewGuid(),
-            //            Module = "Lead",
-            //            Action = "Create",
-            //            CreatedAt = DateTime.Now
-            //        },
-            //        new Permission {
-            //            Id = Guid.NewGuid(),
-            //            Module = "Lead",
-            //            Action = "Read",
-            //            CreatedAt = DateTime.Now
-            //        },
-            //        new Permission {
-            //            Id = Guid.NewGuid(),
-            //            Module = "Lead",
-            //            Action = "Update",
-            //            CreatedAt = DateTime.Now
-            //        },
-            //        new Permission {
-            //            Id = Guid.NewGuid(),
-            //            Module = "Lead",
-            //            Action = "Delete",
-            //            CreatedAt = DateTime.Now
-            //        },
-            //        new Permission {
-            //            Id = Guid.NewGuid(),
-            //            Module = "Quote",
-            //            Action = "Create",
-            //            CreatedAt = DateTime.Now
-            //        },
-            //        new Permission {
-            //            Id = Guid.NewGuid(),
-            //            Module = "Quote",
-            //            Action = "Read",
-            //            CreatedAt = DateTime.Now
-            //        },
-            //        new Permission {
-            //            Id = Guid.NewGuid(),
-            //            Module = "Quote",
-            //            Action = "Update",
-            //            CreatedAt = DateTime.Now
-            //        },
-            //        new Permission {
-            //            Id = Guid.NewGuid(),
-            //            Module = "Quote",
-            //            Action = "Delete",
-            //            CreatedAt = DateTime.Now
-            //        },
-            //        new Permission {
-            //            Id = Guid.NewGuid(),
-            //            Module = "Product",
-            //            Action = "Create",
-            //            CreatedAt = DateTime.Now
-            //        },
-            //        new Permission {
-            //            Id = Guid.NewGuid(),
-            //            Module = "Product",
-            //            Action = "Read",
-            //            CreatedAt = DateTime.Now
-            //        },
-            //        new Permission {
-            //            Id = Guid.NewGuid(),
-            //            Module = "Product",
-            //            Action = "Update",
-            //            CreatedAt = DateTime.Now
-            //        },
-            //        new Permission {
-            //            Id = Guid.NewGuid(),
-            //            Module = "Product",
-            //            Action = "Delete",
-            //            CreatedAt = DateTime.Now
-            //        },
-            //        new Permission {
-            //            Id = Guid.NewGuid(),
-            //            Module = "Order",
-            //            Action = "Create",
-            //            CreatedAt = DateTime.Now
-            //        },
-            //        new Permission {
-            //            Id = Guid.NewGuid(),
-            //            Module = "Order",
-            //            Action = "Read",
-            //            CreatedAt = DateTime.Now
-            //        },
-            //        new Permission {
-            //            Id = Guid.NewGuid(),
-            //            Module = "Order",
-            //            Action = "Update",
-            //            CreatedAt = DateTime.Now
-            //        },
-            //        new Permission {
-            //            Id = Guid.NewGuid(),
-            //            Module = "Order",
-            //            Action = "Delete",
-            //            CreatedAt = DateTime.Now
-            //        }
-            //    ]
-            //    );
-
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -270,7 +130,7 @@ namespace CRM.Persistence.Contexts
             foreach (var entry in entries)
             {
                 // Eğer entity ITenantEntity ise
-                if (entry.Entity is BaseEntity baseEntity)
+                if (entry.Entity is BaseEntity baseEntity )
                 {
                     // Yeni eklenen entity'ler için
                     if (entry.State == EntityState.Added)
@@ -281,11 +141,15 @@ namespace CRM.Persistence.Contexts
                             return await base.SaveChangesAsync(cancellationToken);
                         }
                         baseEntity.OrganizationId = organizationService.GetCurrentOrganizationId();
+                        baseEntity.CreatedById = userService.GetCurrentUserId();
                     }
                     // Güncellenen entity'lerde TenantId değişmesin
                     else if (entry.State == EntityState.Modified)
                     {
                         entry.Property("OrganizationId").IsModified = false;
+                        entry.Property("CreatedById").IsModified = false;
+                        entry.Property("CreatedAt").IsModified = false;
+                        baseEntity.UpdatedById = userService.GetCurrentUserId();
                     }
                 }
             }

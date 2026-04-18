@@ -11,15 +11,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{8BFA2E8B-0AD1-4ED1-9A34-DE6D7BCCC786}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRM.Domain", "src\Core\CRM.Domain\CRM.Domain.csproj", "{8E3C6297-83FD-45F6-9966-9915E12C68D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRM.Domain", "src\Core\CRM.Domain\CRM.Domain.csproj", "{8E3C6297-83FD-45F6-9966-9915E12C68D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRM.Application", "src\Core\CRM.Application\CRM.Application.csproj", "{0003B326-A19E-426C-B4F8-42193B079703}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRM.Application", "src\Core\CRM.Application\CRM.Application.csproj", "{0003B326-A19E-426C-B4F8-42193B079703}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRM.Infrastructure", "src\Infrastructure\CRM.Infrastructure\CRM.Infrastructure.csproj", "{1D38AE17-5BC1-4465-9F7A-A7E4DB2CB0ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRM.Infrastructure", "src\Infrastructure\CRM.Infrastructure\CRM.Infrastructure.csproj", "{1D38AE17-5BC1-4465-9F7A-A7E4DB2CB0ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRM.Persistence", "src\Infrastructure\CRM.Persistence\CRM.Persistence.csproj", "{793646BF-2423-4763-962F-510772B8B88D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRM.Persistence", "src\Infrastructure\CRM.Persistence\CRM.Persistence.csproj", "{793646BF-2423-4763-962F-510772B8B88D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRM.API", "src\Presentation\CRM.API\CRM.API.csproj", "{3170B9B6-4158-4060-B83A-6F691D3F5305}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRM.API", "src\Presentation\CRM.API\CRM.API.csproj", "{3170B9B6-4158-4060-B83A-6F691D3F5305}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7901F12C-9B41-4F81-8DDD-84CD7B4395A3}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

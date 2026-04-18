@@ -14,6 +14,7 @@ namespace CRM.Persistence.Repositories
         {
             return await context.Deals
                 .Include(_ => _.Account)
+                .Include(_ => _.Category)
                 .Include(_ => _.Contact)
                 .Include(_ => _.Owner)
                 .ToListAsync(); 

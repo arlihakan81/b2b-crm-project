@@ -7,8 +7,6 @@ namespace CRM.Application.Interfaces
     {
         Task<IEnumerable<ActivityResponse>?> GetAllAsync();
         Task<IEnumerable<ActivityResponse>> GetByAccountIdAsync(Guid accountId);
-        Task<IEnumerable<ActivityResponse>> GetByContactIdAsync(Guid contactId);
-        Task<IEnumerable<ActivityResponse>> GetByLeadIdAsync(Guid leadId);
         Task<IEnumerable<ActivityResponse>> GetByDealIdAsync(Guid dealId);
 
         Task<ActivityResponse?> GetByIdAsync(Guid id);

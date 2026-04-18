@@ -9,6 +9,8 @@ namespace CRM.Domain.Entities
         public string? Description { get; set; }
         public string? Email { get; set; }
         public string? Phone { get; set; }
+        public string? TaxNumber { get; set; }
+        public string? TaxOffice { get; set; }
         public AccountType Type { get; set; }
         public string? Industry { get; set; }
         public string? BillingAddress { get; set; }

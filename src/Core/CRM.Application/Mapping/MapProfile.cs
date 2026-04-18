@@ -24,7 +24,7 @@ namespace CRM.Application.Mapping
     {
         public MapProfile()
         {
-            CreateMap<Account, AccountResponse>();
+            CreateMap<Account, AccountResponse>().ForMember(des => des.Type, opt => opt.MapFrom(src => src.Type));
             CreateMap<Account, AccountDetailResponse>().ForMember(des => des.Contacts, opt => opt.MapFrom(src => src.Contacts));
             CreateMap<CreateAccountRequest, Account>();
             CreateMap<UpdateAccountRequest, Account>();
@@ -34,7 +34,13 @@ namespace CRM.Application.Mapping
             CreateMap<CreateContactRequest, Contact>();
             CreateMap<UpdateContactRequest, Contact>();
 
-            CreateMap<Deal, DealResponse>().ForMember(des => des.Contact, opt => opt.MapFrom(src => src.Contact));
+            CreateMap<Deal, DealResponse>().ForMember(des => des.Contact, opt => opt.MapFrom(src => src.Contact))
+                .ForMember(des => des.Currency, opt => opt.MapFrom(src => src.Currency))
+                .ForMember(des => des.Type, opt => opt.MapFrom(src => src.Type))
+                .ForMember(des => des.Stage, opt => opt.MapFrom(src => src.Stage))
+                .ForMember(des => des.Priority, opt => opt.MapFrom(src => src.Priority))
+                .ForMember(des => des.Category, opt => opt.MapFrom(src => src.Category.Name))
+                .ForMember(des => des.Owner, opt => opt.MapFrom(src => src.Owner.Name));
             CreateMap<CreateDealRequest, Deal>();
             CreateMap<UpdateDealRequest, Deal>();
 
@@ -55,7 +61,9 @@ namespace CRM.Application.Mapping
             CreateMap<CreateQuoteItemRequest, QuoteItem>();
             CreateMap<UpdateQuoteItemRequest, QuoteItem>();
 
-            CreateMap<Activity, ActivityResponse>();
+            CreateMap<Activity, ActivityResponse>().ForMember(des => des.Type, opt => opt.MapFrom(src => src.Type))
+                .ForMember(des => des.Account, opt => opt.MapFrom(src => src.Account.Name))
+                .ForMember(des => des.Deal, opt => opt.MapFrom(src => src.Deal!.Name));
             CreateMap<CreateActivityRequest, Activity>();
             CreateMap<UpdateActivityRequest, Activity>();
 

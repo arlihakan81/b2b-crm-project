@@ -10,24 +10,20 @@ namespace CRM.Persistence.Repositories
     {
         private readonly ApplicationDbContext context = context;
 
-        public async Task<IEnumerable<Activity>?> GetByAccountIdAsync(Guid accountId)
+        public override async Task<IEnumerable<Activity>?> GetAllAsync()
         {
-            return await context.Activities.Where(a => a.RelatedEntityType == EntityType.Account && a.RelatedEntityId == accountId).ToListAsync();
+            return await context.Activities.Include(a => a.Account).Include(a => a.Deal).ToListAsync();
         }
 
-        public async Task<IEnumerable<Activity>?> GetByContactIdAsync(Guid contactId)
+        public async Task<IEnumerable<Activity>?> GetByAccountIdAsync(Guid accountId)
         {
-            return await context.Activities.Where(a => a.RelatedEntityType == EntityType.Contact && a.RelatedEntityId == contactId).ToListAsync();
+            return await context.Activities.Where(a => a.AccountId == accountId).ToListAsync();
         }
 
         public async Task<IEnumerable<Activity>?> GetByDealIdAsync(Guid opportunityId)
         {
-            return await context.Activities.Where(a => a.RelatedEntityType == EntityType.Deal && a.RelatedEntityId == opportunityId).ToListAsync();
+            return await context.Activities.Where(a => a.DealId == opportunityId).ToListAsync();
         }
 
-        public async Task<IEnumerable<Activity>?> GetByLeadIdAsync(Guid leadId)
-        {
-            return await context.Activities.Where(a => a.RelatedEntityId == leadId && a.RelatedEntityType == EntityType.Lead).ToListAsync();
-        }
     }
 }

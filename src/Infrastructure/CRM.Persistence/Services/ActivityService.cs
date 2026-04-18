@@ -36,13 +36,6 @@ namespace CRM.Persistence.Services
                 : [];
         }
 
-        public async Task<IEnumerable<ActivityResponse>> GetByContactIdAsync(Guid contactId)
-        {
-            return await repository.GetByContactIdAsync(contactId) is IEnumerable<Activity> activities
-                ? mapper.Map<IEnumerable<ActivityResponse>>(activities)
-                : [];
-        }
-
         public async Task<IEnumerable<ActivityResponse>> GetByDealIdAsync(Guid dealId)
         {
             return await repository.GetByDealIdAsync(dealId) is IEnumerable<Activity> activities
@@ -55,13 +48,6 @@ namespace CRM.Persistence.Services
             return await repository.GetByIdAsync(id) is Activity activity
                 ? mapper.Map<ActivityResponse>(activity)
                 : null;
-        }
-
-        public async Task<IEnumerable<ActivityResponse>> GetByLeadIdAsync(Guid leadId)
-        {
-            return await repository.GetByLeadIdAsync(leadId) is IEnumerable<Activity> activities
-                ? mapper.Map<IEnumerable<ActivityResponse>>(activities)
-                : [];
         }
 
         public async Task UpdateAsync(Guid id, UpdateActivityRequest request)

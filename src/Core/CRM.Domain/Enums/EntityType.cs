@@ -2,12 +2,7 @@
 {
     public enum EntityType
     {
-        Contact = 1,
-        Account,
-        Deal,
-        Lead,
-        Quote,
-        Order,
-        Product
+        Account = 1,
+        Deal
     }
 }

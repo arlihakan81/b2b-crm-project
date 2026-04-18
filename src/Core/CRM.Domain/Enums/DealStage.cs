@@ -2,7 +2,7 @@
 {
     public enum DealStage
     {
-        New,
+        New = 1,
         Qualification,
         Proposal,
         Negotiation,

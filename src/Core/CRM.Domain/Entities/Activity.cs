@@ -8,10 +8,18 @@ namespace CRM.Domain.Entities
         public ActivityType Type { get; set; }
         public string Subject { get; set; }
         public string? Description { get; set; }
+        public Guid AccountId { get; set; }
+        public Guid? DealId { get; set; }
+        public Guid OwnerId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime? DueDate { get; set; }
-        public bool IsCompleted { get; set; }
-        public EntityType RelatedEntityType { get; set; }
-        public Guid RelatedEntityId { get; set; }
+        public bool IsCompleted {
+            get => false;
+            set => value = false; 
+        }
+
+        public Account Account { get; set; }
+        public Deal? Deal { get; set; }
+        public ApplicationUser Owner { get; set; }
     }
 }

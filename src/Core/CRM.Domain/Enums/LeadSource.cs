@@ -2,7 +2,7 @@
 {
     public enum LeadSource
     {
-        Website,
+        Website = 1,
         GoogleAds,
         Marketing,
         Referral,

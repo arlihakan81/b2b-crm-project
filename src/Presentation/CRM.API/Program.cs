@@ -62,7 +62,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 ValidateIssuer = true,
                 ValidateAudience = true,
                 ValidateLifetime = true,
-                ValidateIssuerSigningKey = true
+                ValidateIssuerSigningKey = true,
+                ClockSkew = TimeSpan.Zero
             };
         }
     );
@@ -71,6 +72,8 @@ builder.Services.AddAutoMapper(typeof(MapProfile));
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<ApplicationDbContext>();
 builder.Services.AddScoped<IOrganizationService, OrganizationService>();
+builder.Services.AddScoped<IApplicationUserService, ApplicationUserService>();
+
 builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));

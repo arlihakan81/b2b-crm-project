@@ -9,7 +9,7 @@ namespace CRM.Application.Responses.Accounts
         public string Name { get; set; }
         public string? Email { get; set; }
         public string? Phone { get; set; }
-        public AccountType Type { get; set; }
+        public string? Type { get; set; }
         public string? Industry { get; set; }
         
     }

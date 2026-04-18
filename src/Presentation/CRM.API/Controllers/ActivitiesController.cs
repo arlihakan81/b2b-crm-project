@@ -22,12 +22,6 @@ namespace CRM.API.Controllers
         [HttpGet("account/{accountId}")]
         public async Task<IActionResult> GetByAccountId(Guid accountId) => Ok(await service.GetByAccountIdAsync(accountId));
 
-        [HttpGet("contact/{contactId}")]
-        public async Task<IActionResult> GetByContactId(Guid contactId) => Ok(await service.GetByContactIdAsync(contactId));
-
-        [HttpGet("lead/{leadId}")]
-        public async Task<IActionResult> GetByLeadId(Guid leadId) => Ok(await service.GetByLeadIdAsync(leadId));
-
         [HttpGet("deal/{dealId}")]
         public async Task<IActionResult> GetByDealId(Guid dealId) => Ok(await service.GetByDealIdAsync(dealId));
 

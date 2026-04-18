@@ -9,17 +9,17 @@ namespace CRM.Application.Responses.Deals
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Code { get; set; }
-        public Currency Currency { get; set; }
-        public DealType Type { get; set; }
-        public Guid CategoryId { get; set; }
+        public string? Currency { get; set; }
+        public string? Type { get; set; }
+        public string? Category { get; set; }
         public decimal Amount { get; set; }
         public DateTime? CloseDate { get; set; }
-        public DealStage Stage { get; set; }
-        public LeadSource LeadSource { get; set; }
-        public Guid OwnerId { get; set; }
+        public string? Stage { get; set; }
+        public string? LeadSource { get; set; }
+        public string? Owner { get; set; }
         public decimal? Probability { get; set; }
         public decimal? ExpectedRevenue { get; set; }
-        public Priority Priority { get; set; }
+        public string? Priority { get; set; }
 
         public DateTime CreatedAt { get; set; }
         public DateTime? ModifiedAt { get; set; }
